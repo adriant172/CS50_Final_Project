@@ -23,7 +23,7 @@ def view_recipe():
     if request.method == "GET":
         return render_template("view_recipe.html")
 
-@app.route("search_results")
+@app.route("/search_results")
 def search_results():
     if request.method == "GET":
         return render_template("search_results.html")
