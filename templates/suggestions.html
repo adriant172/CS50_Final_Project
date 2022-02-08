@@ -5,5 +5,35 @@
 {% endblock %}
 
 {% block main %}
-    test
+    <h1>Suggestions</h1>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Recipe</th>
+                <th>URL</th>
+                <th>Total Time</th>
+                <th>Servings</th>
+                <th>Estimated Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recipe in suggestion_results %}
+                <tr>
+                    <td>
+                        <form action="/view_recipe" method="post">
+                            <input hidden name="recipe_id" id="recipe_id" value="{{ recipe.id }}" type="text">
+                            <input hidden name="image_url" id="recipe_url" value="{{ recipe.image }}" type="text">
+                            <button id="view_recipe" type="submit">View</button>
+                        </form>
+                    </td>
+                    <td>{{ recipe.title }}<img src="{{ recipe.image }}" alt="{{ recipe.title }}"></td>
+                    <td>{{ recipe.sourceUrl }}</td>
+                    <td>{{ recipe.readyInMinutes }}</td>
+                    <td>{{ recipe.servings }}</td>
+                    <td>{{ recipe | recipe_price | usd}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

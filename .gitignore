@@ -1,0 +1,8 @@
+.venv/
+.env
+*.json
+__pycache__/
+.vscode/
+flask_session/
+test.py
+removefolder/

@@ -5,5 +5,39 @@
 {% endblock %}
 
 {% block main %}
-    test
+    <div class="container">
+        <h2> {{ recipe.title }}</h2>
+        <img src="{{ image_url }}" alt {{ recipe.title }}>
+        <p>CooK Time: {{ recipe.cookingTime }}</p>
+        <p>Total Time: {{ recipe.readyInMinutes }}</p>
+        <p>Servings: {{ recipe.servings }}</p>
+        <p>Estimated Price: {{ total_price | usd }}</p>
+        <p>Summary: {{ recipe.summary | remove_html_tags}}</p>
+        <ul>
+            {% for ingredient in recipe.extendedIngredients %}
+                <li>{{ ingredient.original }}</li>
+            {% endfor %}
+        </ul>
+        <div>
+            <ol>
+                {% for step in instructions %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        </div>  
+        <form action="/">
+            <input hidden id="Favorite" name="favorite">
+            <label for="id-of-input" class="custom-checkbox">
+                <input type="checkbox" id="id-of-input"/>
+                <i class="glyphicon glyphicon-star-empty"></i>
+                <i class="glyphicon glyphicon-star"></i>
+                <span>Favorite</span>
+                <button type="submit"></button>
+            </label>
+        </form>
+
+    </div>
+    
+    
+
 {% endblock %}
