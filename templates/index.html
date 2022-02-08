@@ -5,5 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    test
+<form action="/" method="post">
+    <input autocomplete="off" autofocus id="recipe_search" name="recipe_search" placeholder="Search" type="text">
+    <button type="submit" value="search">Search</button>
+</form>
 {% endblock %}
