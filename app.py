@@ -1,4 +1,5 @@
 import os
+from cs50 import SQL
 from sqlite3 import connect
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
@@ -18,7 +19,7 @@ Session(app)
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = "recipe_app.db"
 # db = SQLAlchemy(app)
-db = connect("recipe_app.db")
+db = SQL("sqlite:///recipe_app.db")
 
 # Make sure API key and API id is set
 # if os.environ.get("API_KEY") == None:
@@ -95,7 +96,7 @@ def register():
             return apology("Please Enter password and Confirm Password!")
         elif password != confirmation:
             return apology("Passwords do not match!")
-        db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
+        db.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", username, generate_password_hash(password))
         row = db.execute("SELECT id FROM users WHERE username= ?", username)
         new_user_id = row[0]["id"]
         session["user_id"] = new_user_id
