@@ -5,5 +5,25 @@
 {% endblock %}
 
 {% block main %}
-    test
+<div class="container">
+    <div>
+        <h4>Current Budget</h4>
+        <p>{{ user_info.daily_budget }}</p>
+        <form>
+
+        </form>
+    </div>
+    <div>
+        <h4>Preferences</h4>
+        <ul>
+            {% for pref in user_prefs %}
+                <li> {{ pref }} </li>
+            {% endfor %}
+        </ul>
+        <form>
+            <input>
+        </form>
+    </div>
+
+</div>
 {% endblock %}

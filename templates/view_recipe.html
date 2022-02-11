@@ -5,5 +5,23 @@
 {% endblock %}
 
 {% block main %}
-    test
+    <div class="container">
+        <h2> {{ recipe.title }}</h2>
+        <img src="{{ image_url }}" alt {{ recipe.title }}>
+        <p>CooK Time: {{ recipe.cookingTime }}</p>
+        <p>Total Time: {{ recipe.readyTime }}</p>
+        <p>Servings: {{ recipe.servings }}</p>
+        <p>Estimated Price: {{ total_price | usd }}</p>
+        <p>Summary: {{ recipe.summary}}</p>
+        <ul>
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient.original }}</li>
+            {% endfor %}
+        </ul>
+        <p>{{ recipe.instructions}}</p>
+
+    </div>
+    
+    
+
 {% endblock %}

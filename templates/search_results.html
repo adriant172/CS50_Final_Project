@@ -8,22 +8,27 @@
     <table>
         <thead>
             <tr>
+                <th></th>
                 <th>Recipe</th>
                 <th>URL</th>
-                <th>Ingredients</th>
-                <th>Calories</th>
                 <th>Total Time</th>
                 <th>Servings</th>
+                <th>Estimated Price</th>
             </tr>
         </thead>
         <tbody>
             {% for result in results %}
                 <tr>
-                    <td>{{ result.name }} + {{ result.image }}</td>
-                    <td>{{ result.source_url }}</td>
-                    <td>{{ result.ingredients }}</td>
-                    <td>{{ result.calories }}</td>
-                    <td>{{ result.total_time }}</td>
+                    <td>
+                        <form action="/view_recipe" method="post">
+                            <input hidden name="recipe_id" id="recipe_id" value="{{ result.id }}" type="text">
+                            <input hidden name="image_url" id="recipe_url" value="{{ result.image }}" type="text">
+                            <button id="view_recipe" type="submit">View</button>
+                        </form>
+                    </td>
+                    <td>{{ result.title }} +  <img src="{{ result.image }}" alt="{{ result.title }}"></td>
+                    <td>{{ result.sourceUrl }}</td>
+                    <td>{{ result.readyInMinutes }}</td>
                     <td>{{ result.servings }}</td>
                 </tr>
             {% endfor %}
