@@ -1,0 +1,295 @@
+{
+    "title": "Trinidad-Style Curry Chicken",
+    "ingredients": [
+        {
+            "id": 5066,
+            "aisle": "Meat",
+            "image": "chicken-drumsticks.jpg",
+            "consistency": "solid",
+            "name": "chicken drumsticks",
+            "nameClean": "chicken drumsticks",
+            "original": "12 chicken drumsticks",
+            "originalName": "chicken drumsticks",
+            "amount": 12.0,
+            "unit": "",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 12.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                },
+                "metric": {
+                    "amount": 12.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                }
+            }
+        },
+        {
+            "id": 11282,
+            "aisle": "Produce",
+            "image": "brown-onion.png",
+            "consistency": "solid",
+            "name": "onion",
+            "nameClean": "onion",
+            "original": "1 onion",
+            "originalName": "onion",
+            "amount": 1.0,
+            "unit": "",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 1.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                },
+                "metric": {
+                    "amount": 1.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                }
+            }
+        },
+        {
+            "id": 11216,
+            "aisle": "Produce;Ethnic Foods;Spices and Seasonings",
+            "image": "ginger.png",
+            "consistency": "solid",
+            "name": "ginger",
+            "nameClean": "ginger",
+            "original": "1 inch ginger (peeled)",
+            "originalName": "ginger (peeled)",
+            "amount": 1.0,
+            "unit": "inch",
+            "meta": [
+                "peeled",
+                "()"
+            ],
+            "measures": {
+                "us": {
+                    "amount": 1.0,
+                    "unitShort": "inch",
+                    "unitLong": "inch"
+                },
+                "metric": {
+                    "amount": 1.0,
+                    "unitShort": "inch",
+                    "unitLong": "inch"
+                }
+            }
+        },
+        {
+            "id": 10211215,
+            "aisle": "Produce",
+            "image": "garlic.jpg",
+            "consistency": "solid",
+            "name": "garlic cloves",
+            "nameClean": "whole garlic cloves",
+            "original": "4 garlic cloves",
+            "originalName": "garlic cloves",
+            "amount": 4.0,
+            "unit": "",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 4.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                },
+                "metric": {
+                    "amount": 4.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                }
+            }
+        },
+        {
+            "id": 11165,
+            "aisle": "Produce;Spices and Seasonings",
+            "image": "cilantro.png",
+            "consistency": "solid",
+            "name": "cilantro",
+            "nameClean": "cilantro",
+            "original": "1/2 cup fresh cilantro",
+            "originalName": "fresh cilantro",
+            "amount": 0.5,
+            "unit": "cup",
+            "meta": [
+                "fresh"
+            ],
+            "measures": {
+                "us": {
+                    "amount": 0.5,
+                    "unitShort": "cups",
+                    "unitLong": "cups"
+                },
+                "metric": {
+                    "amount": 118.294,
+                    "unitShort": "ml",
+                    "unitLong": "milliliters"
+                }
+            }
+        },
+        {
+            "id": 2015,
+            "aisle": "Spices and Seasonings",
+            "image": "curry-powder.jpg",
+            "consistency": "solid",
+            "name": "curry powder",
+            "nameClean": "curry powder",
+            "original": "2 tbsp curry powder",
+            "originalName": "curry powder",
+            "amount": 2.0,
+            "unit": "tbsp",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 2.0,
+                    "unitShort": "Tbsps",
+                    "unitLong": "Tbsps"
+                },
+                "metric": {
+                    "amount": 2.0,
+                    "unitShort": "Tbsps",
+                    "unitLong": "Tbsps"
+                }
+            }
+        },
+        {
+            "id": 2047,
+            "aisle": "Spices and Seasonings",
+            "image": "salt.jpg",
+            "consistency": "solid",
+            "name": "salt",
+            "nameClean": "salt",
+            "original": "1 tsp salt",
+            "originalName": "salt",
+            "amount": 1.0,
+            "unit": "tsp",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 1.0,
+                    "unitShort": "tsp",
+                    "unitLong": "teaspoon"
+                },
+                "metric": {
+                    "amount": 1.0,
+                    "unitShort": "tsp",
+                    "unitLong": "teaspoon"
+                }
+            }
+        },
+        {
+            "id": 11819,
+            "aisle": "Produce",
+            "image": "red-chili.jpg",
+            "consistency": "solid",
+            "name": "pepper )",
+            "nameClean": "chili pepper",
+            "original": "1 hot pepper ((scotch bonnet or habanero))",
+            "originalName": "hot pepper ((scotch bonnet or habanero))",
+            "amount": 1.0,
+            "unit": "",
+            "meta": [
+                "hot",
+                "((scotch bonnet or habanero)"
+            ],
+            "measures": {
+                "us": {
+                    "amount": 1.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                },
+                "metric": {
+                    "amount": 1.0,
+                    "unitShort": "",
+                    "unitLong": ""
+                }
+            }
+        },
+        {
+            "id": 4582,
+            "aisle": "Oil, Vinegar, Salad Dressing",
+            "image": "vegetable-oil.jpg",
+            "consistency": "liquid",
+            "name": "oil",
+            "nameClean": "cooking oil",
+            "original": "4 tbsp oil",
+            "originalName": "oil",
+            "amount": 4.0,
+            "unit": "tbsp",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 4.0,
+                    "unitShort": "Tbsps",
+                    "unitLong": "Tbsps"
+                },
+                "metric": {
+                    "amount": 4.0,
+                    "unitShort": "Tbsps",
+                    "unitLong": "Tbsps"
+                }
+            }
+        },
+        {
+            "id": 14412,
+            "aisle": "Beverages",
+            "image": "water.png",
+            "consistency": "liquid",
+            "name": "water",
+            "nameClean": "water",
+            "original": "1/2 cup water",
+            "originalName": "water",
+            "amount": 0.5,
+            "unit": "cup",
+            "meta": [],
+            "measures": {
+                "us": {
+                    "amount": 0.5,
+                    "unitShort": "cups",
+                    "unitLong": "cups"
+                },
+                "metric": {
+                    "amount": 118.294,
+                    "unitShort": "ml",
+                    "unitLong": "milliliters"
+                }
+            }
+        },
+        {
+            "id": 11165,
+            "aisle": "Produce;Spices and Seasonings",
+            "image": "cilantro.png",
+            "consistency": "solid",
+            "name": "cilantro",
+            "nameClean": "cilantro",
+            "original": "1/2 cup chopped cilantro",
+            "originalName": "chopped cilantro",
+            "amount": 0.5,
+            "unit": "cup",
+            "meta": [
+                "chopped"
+            ],
+            "measures": {
+                "us": {
+                    "amount": 0.5,
+                    "unitShort": "cups",
+                    "unitLong": "cups"
+                },
+                "metric": {
+                    "amount": 118.294,
+                    "unitShort": "ml",
+                    "unitLong": "milliliters"
+                }
+            }
+        }
+    ],
+    "cookingTime": 60,
+    "readyTime": 80,
+    "price_per_Serving": 60,
+    "servings": 12,
+    "instructions": "Wash the chicken drumsticks and peel the skin up to the knob.\n\nUsing a cleaver, or any good solid knife, chop the top part off the drumstick. Check to see if there are any little chipped pieces of bone hanging around. Remove them, if there are, and wash them one more time.\n\nPulse the onion, garlic, ginger, 1/2 cup cilantro and hot pepper in the food processor until finely chopped. Remove the seeds of the pepper if you do not like it really hot.\n\nAdd the curry powder and pulse it again until a curry paste is formed.\n\nRub the curry paste all over the chicken drumsticks and place in the fridge for at least an hour to marinate. Heat the oil in a skillet and add the marinated chicken. Brown on all sides and then add the water to create a sauce. Let the chicken simmer about 45 minutes longer. Add a little more water if the sauce gets too dry.\n\nRemove from the heat and stir in the chopped cilantro. Serve with rice or roti (if you can get them)."
+}
