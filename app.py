@@ -135,18 +135,56 @@ def suggestions():
     if request.method == "GET":
         return render_template("suggestions.html")
 
-@app.route("/settings")
+@app.route("/settings", methods=["GET", "POST"])
 def settings():
+    user_id = session["user_id"]
+    user_prefs_IDs = db.execute("SELECT cuisine_id FROM user_preferences WHERE user_id=? AND enabled=?", user_id, 1 )
+    # Grab all cusine types from DB and pass them to the settings route
+    all_cuisine_types = []
+    current_user_prefs = []
+    cuisine_tags = db.execute("SELECT * FROM cuisine_tags")
+    for cuisine in cuisine_tags:
+            all_cuisine_types.append(cuisine["cuisine_type"])
+            for id in user_prefs_IDs:
+                if id["cuisine_id"] == cuisine["id"]:
+                    current_user_prefs.append(cuisine["cuisine_type"])
     if request.method == "GET":
-        user_id = session["user_id"]
-        # Grab all cusine types from DB and pass them to the settings route
-        all_cuisine_types = []
-        rows = db.execute("SELECT * FROM cuisine_tags")
-        for row in rows:
-            all_cuisine_types.append(row["cuisine_type"])
-        user_prefs = db.execute("SELECT * FROM user_preferences WHERE user_id=?", user_id )
         user_info = db.execute("SELECT points, daily_budget FROM users WHERE id=?", user_id)
-        return render_template("settings.html", all_cuisine_types=all_cuisine_types, user_prefs=user_prefs, user_info=user_info)
+        daily_budget = user_info[0]["daily_budget"]
+        if not daily_budget:
+            daily_budget = 0
+        daily_budget = float(daily_budget)
+        return render_template("settings.html", all_cuisine_types=all_cuisine_types, current_user_prefs=current_user_prefs, daily_budget=daily_budget)
+    else:
+        new_budget = request.form.get("new_budget")
+        cuisine_selections = request.form.getlist("cuisine_selections")
+        if new_budget is not None:
+            new_budget = float(new_budget)
+            if new_budget > 0:
+                db.execute("UPDATE users SET daily_budget=? WHERE id=?", new_budget, user_id)
+        if cuisine_selections is not None:
+            # create list of the ids of the users new cuisine preferences
+            new_preferences_ids = []
+            for cuisine in cuisine_selections:
+                current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
+                new_preferences_ids.append(current_cuisine_id)
+            #Confirm that the selected options reflect option in DB
+            for cuisine in cuisine_selections:
+                if cuisine in all_cuisine_types:
+                    # Check if any preferences exist for the user.If not create new ones
+                    current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
+                    row = db.execute("SELECT * FROM user_preferences WHERE id=? AND cuisine_id=?", user_id, current_cuisine_id)
+                    print(row)
+                    if not row:
+                        db.execute("INSERT INTO user_preferences (user_id, cuisine_id, enabled) VALUES(?, ?, ?)", user_id, current_cuisine_id, 1 )
+                        continue
+                    else:
+                        if row[0]["cuisine_id"] not in new_preferences_ids:
+                            db.execute("UPDATE user_preferences SET enabled=0 WHERE user_id=? AND cuisine_id=?", user_id, row[0]["cuisine_id"])
+                        else:
+                            db.execute("UPDATE user_preferences SET enabled=1 WHERE user_id=? AND cuisine_id=?", user_id, row[0]["cuisine_id"])
+        return redirect("/")
+        
 
 @app.route("/get_user_info_api")
 def get_user_info_api():

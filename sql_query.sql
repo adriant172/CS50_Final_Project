@@ -29,6 +29,7 @@ CREATE TABLE user_preferences (
   id INTEGER,
   user_id INTEGER,
   cuisine_id INTEGER,
+  enabled BOOLEAN CHECK (Enabled IN (0, 1));
   FOREIGN KEY(user_id) REFERENCES users(id),
   FOREIGN KEY(cuisine_id) REFERENCES cuisine_tags(id),
   PRIMARY KEY(id)

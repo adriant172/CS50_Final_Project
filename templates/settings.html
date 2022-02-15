@@ -8,20 +8,25 @@
 <div class="container">
     <div>
         <h4>Current Budget</h4>
-        <p>{{ user_info.daily_budget }}</p>
-        <form>
-
-        </form>
+        <p>{{ daily_budget | usd }}</p>
     </div>
     <div>
         <h4>Preferences</h4>
         <ul>
-            {% for pref in user_prefs %}
+            {% for pref in current_user_prefs %}
                 <li> {{ pref }} </li>
             {% endfor %}
         </ul>
-        <form>
-            <input>
+        <form action="/settings" method="post">
+            <div>
+                <select name="cuisine_selections" multiple id="cuisine_selections">
+                    {% for cuisine in all_cuisine_types %}
+                        <option value="{{ cuisine }}">{{ cuisine }}</option>
+                    {% endfor %}
+                </select>
+                <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     </div>
 
