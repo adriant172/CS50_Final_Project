@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 db = SQL("sqlite:///recipe_app.db")
 load_dotenv()
 api_key = os.getenv("APIKEY")
-print(api_key)
 
 def usd(value):
     #Format value to usd
