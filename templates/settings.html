@@ -19,13 +19,16 @@
         </ul>
         <form action="/settings" method="post">
             <div>
-                <select name="cuisine_selections" multiple id="cuisine_selections">
+                <div>
                     {% for cuisine in all_cuisine_types %}
-                        <option value="{{ cuisine }}">{{ cuisine }}</option>
+                    <input type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections" value="{{ cuisine.cuisine_type }}">
+                    <label for="{{ cuisine.cuisine_type }}">"{{ cuisine.cuisine_type }}"</label>
                     {% endfor %}
-                </select>
-                <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
-                <button type="submit">Submit</button>
+                </div>
+                <div>
+                    <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
+                    <button type="submit">Submit</button>
+                </div>     
             </div>
         </form>
     </div>

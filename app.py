@@ -5,7 +5,7 @@ from sqlite3 import connect
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from support_functions import apology, login_required, get_current_user, sp_recipe_look_up, usd, recipe_price, single_recipe
+from support_functions import *
 from flask_sqlalchemy import SQLAlchemy
 
 app =  Flask(__name__)
@@ -16,6 +16,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 # Custom filters
 app.jinja_env.filters["usd"] = usd
 app.jinja_env.filters["recipe_price"] = recipe_price
+app.jinja_env.filters["remove_html_tags"] = remove_html_tags
 
 
 # Configure session to use filesystem (instead of signed cookies)
@@ -130,10 +131,12 @@ def search_results():
     if request.method == "GET":
         return render_template("search_results.html")
 
-@app.route("/suggestions")
+@app.route("/suggestions", methods=["GET", "POST"])
 def suggestions():
     if request.method == "GET":
-        return render_template("suggestions.html")
+        user_id = session["user_id"]
+        suggestion_results = get_suggestions(user_id)
+        return render_template("suggestions.html", suggestion_results=suggestion_results)
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
@@ -144,7 +147,7 @@ def settings():
     current_user_prefs = []
     cuisine_tags = db.execute("SELECT * FROM cuisine_tags")
     for cuisine in cuisine_tags:
-            all_cuisine_types.append(cuisine["cuisine_type"])
+            all_cuisine_types.append(cuisine)
             for id in user_prefs_IDs:
                 if id["cuisine_id"] == cuisine["id"]:
                     current_user_prefs.append(cuisine["cuisine_type"])
@@ -159,9 +162,11 @@ def settings():
         new_budget = request.form.get("new_budget")
         cuisine_selections = request.form.getlist("cuisine_selections")
         if new_budget is not None:
-            new_budget = float(new_budget)
-            if new_budget > 0:
-                db.execute("UPDATE users SET daily_budget=? WHERE id=?", new_budget, user_id)
+            result = check_float(new_budget)
+            if result == True:
+                new_budget = float(new_budget)
+                if new_budget > 0:
+                    db.execute("UPDATE users SET daily_budget=? WHERE id=?", new_budget, user_id)
         if cuisine_selections is not None:
             # create list of the ids of the users new cuisine preferences
             new_preferences_ids = []
@@ -169,20 +174,18 @@ def settings():
                 current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
                 new_preferences_ids.append(current_cuisine_id)
             #Confirm that the selected options reflect option in DB
-            for cuisine in cuisine_selections:
-                if cuisine in all_cuisine_types:
+            for cuisine in all_cuisine_types:
+                if cuisine["cuisine_type"] not in cuisine_selections:
+                    db.execute("UPDATE user_preferences SET enabled=0 WHERE user_id=? AND cuisine_id=?", user_id, cuisine["id"])
+                else:
                     # Check if any preferences exist for the user.If not create new ones
-                    current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
-                    row = db.execute("SELECT * FROM user_preferences WHERE id=? AND cuisine_id=?", user_id, current_cuisine_id)
+                    row = db.execute("SELECT * FROM user_preferences WHERE user_id=? AND cuisine_id=?", user_id, cuisine["id"])
                     print(row)
                     if not row:
-                        db.execute("INSERT INTO user_preferences (user_id, cuisine_id, enabled) VALUES(?, ?, ?)", user_id, current_cuisine_id, 1 )
-                        continue
+                        db.execute("INSERT INTO user_preferences (user_id, cuisine_id, enabled) VALUES(?, ?, ?)", user_id, cuisine["id"], 1 )
                     else:
-                        if row[0]["cuisine_id"] not in new_preferences_ids:
-                            db.execute("UPDATE user_preferences SET enabled=0 WHERE user_id=? AND cuisine_id=?", user_id, row[0]["cuisine_id"])
-                        else:
-                            db.execute("UPDATE user_preferences SET enabled=1 WHERE user_id=? AND cuisine_id=?", user_id, row[0]["cuisine_id"])
+                        db.execute("UPDATE user_preferences SET enabled=1 WHERE user_id=? AND cuisine_id=?", user_id, cuisine["id"])
+                
         return redirect("/")
         
 
