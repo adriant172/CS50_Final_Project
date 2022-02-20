@@ -1,5 +1,3 @@
-import os
-import json
 from cs50 import SQL
 from sqlite3 import connect
 from flask import Flask, redirect, render_template, request, session

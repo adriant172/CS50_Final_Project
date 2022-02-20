@@ -6,10 +6,7 @@
 
 {% block main %}
 <div class="container">
-    <div>
-        <h4>Current Budget</h4>
-        <p>{{ daily_budget | usd }}</p>
-    </div>
+    
     <div>
         <h4>Preferences</h4>
         <ul>
@@ -19,17 +16,22 @@
         </ul>
         <form action="/settings" method="post">
             <div>
-                <div>
-                    {% for cuisine in all_cuisine_types %}
-                    <input type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections" value="{{ cuisine.cuisine_type }}">
-                    <label for="{{ cuisine.cuisine_type }}">"{{ cuisine.cuisine_type }}"</label>
-                    {% endfor %}
-                </div>
-                <div>
-                    <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
-                    <button type="submit">Submit</button>
-                </div>     
+                {% for cuisine in all_cuisine_types %}
+                    {if}
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="{{ cuisine.cuisine_type }}">
+                        <label class="form-check-label" for="{{ cuisine.cuisine_type }}">{{ cuisine.cuisine_type }}</label>
+                    </div>
+                {% endfor %}
             </div>
+            <div>
+                <h4>Current Budget</h4>
+                <p>{{ daily_budget | usd }}</p>
+            </div>
+            <div>
+                <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
+                <button type="submit">Submit</button>
+            </div>     
         </form>
     </div>
 
