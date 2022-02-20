@@ -122,8 +122,12 @@ def view_recipe():
         recipe_id = request.form.get("recipe_id")
         image_url = request.form.get("image_url")
         recipe = single_recipe(recipe_id)
+        instructions = []
+        steps = recipe["analyzedInstructions"][0]["steps"]
+        for step in steps:
+            instructions.append(step["step"])
         total_price = recipe_price(recipe)
-        return render_template("view_recipe.html", recipe=recipe, image_url=image_url, total_price=total_price)
+        return render_template("view_recipe.html", recipe=recipe, image_url=image_url, total_price=total_price, instructions=instructions)
     return render_template("view_recipe.html")
 
 @app.route("/search_results")
@@ -192,9 +196,13 @@ def settings():
 @app.route("/get_user_info_api")
 def get_user_info_api():
     user_id = session["user_id"]
-    user = get_current_user(user_id)
-    username = user["username"]
-    return {"value": username}
+    if not user_id:
+        return
+    else:
+        user = get_current_user(user_id)
+        username = user["username"]
+        return {"value": username}
+    
 
 
 

@@ -15,3 +15,12 @@ function username_api(){
     request.send()
 
 }
+
+var favorite = document.querySelector(".custom-checkbox")
+
+favorite.addEventListener("click", {
+    if (favo) {
+        
+    }
+
+})

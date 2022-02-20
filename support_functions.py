@@ -126,6 +126,9 @@ def get_suggestions(user_id):
     return suggestion_results
 
 
+# with open("api_test2.json", "w") as file:
+#     recipe = single_recipe(641128)
+#     json.dump(recipe, file)
 
 
 
