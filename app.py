@@ -41,7 +41,9 @@ db = SQL("sqlite:///recipe_app.db")
 def index():
     # General Search functionaility 
     if request.method == "GET":
-        return render_template("index.html")
+        user_id = session["user_id"]
+        suggestion_results = get_suggestions(user_id)
+        return render_template("index.html", suggestion_results=suggestion_results)
     else:
         recipe_search = request.form.get("recipe_search")
         if not recipe_search:
@@ -173,6 +175,7 @@ def settings():
             # create list of the ids of the users new cuisine preferences
             new_preferences_ids = []
             for cuisine in cuisine_selections:
+                print(db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine))
                 current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
                 new_preferences_ids.append(current_cuisine_id)
             #Confirm that the selected options reflect option in DB

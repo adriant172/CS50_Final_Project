@@ -6,7 +6,7 @@ function username_api(){
         const data = JSON.parse(this.response)
         if (request.status >= 200 && request.status < 400) {
             const balance_btn = document.getElementById("navbarDropdownMenuLink");
-            balance_btn.innerHTML = data.user;
+            balance_btn.innerHTML = data.value;
         } else {
             console.log("Error!!!!!");
         }
