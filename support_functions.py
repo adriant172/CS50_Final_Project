@@ -67,6 +67,14 @@ def get_current_user(user_id):
         user_info["username"] = row[0]["username"]
         user_info["points"] = row[0]["points"]
         user_info["daily_budget"] = row[0]["daily_budget"]
+        user_prefs_IDs = db.execute("SELECT cuisine_id FROM user_preferences WHERE user_id=? AND enabled=?", user_id, 1 )
+        current_user_prefs = []
+        cuisine_tags = db.execute("SELECT * FROM cuisine_tags")
+        for cuisine in cuisine_tags:
+            for id in user_prefs_IDs:
+                if id["cuisine_id"] == cuisine["id"]:
+                    current_user_prefs.append(cuisine["cuisine_type"])
+        user_info["preferences"] = current_user_prefs
         return user_info
 
 
