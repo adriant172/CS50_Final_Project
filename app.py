@@ -1,10 +1,8 @@
 from cs50 import SQL
-from sqlite3 import connect
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from support_functions import *
-from flask_sqlalchemy import SQLAlchemy
 import random
 
 app =  Flask(__name__)

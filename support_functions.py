@@ -1,7 +1,6 @@
 import os
 import requests
 import json
-import re
 from cs50 import SQL
 from flask import render_template, session, redirect
 from functools import wraps

@@ -14,4 +14,11 @@ function username_api(){
     request.send()
 }
 
+var ready = (callback) => {
+    if (document.readyState != "loading") callback();
+    else document.addEventListener("DOMContentLoaded", callback);
+}
+ready(() => {
+    document.querySelector("main").style.height = window.innerHeight + "px";
+})
 

@@ -1,5 +1,4 @@
 
-  
   /* Required Styling */
   
   label input[type="checkbox"] {
@@ -35,4 +34,13 @@
   
   .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
     opacity: 1;
+  }
+
+
+  body {
+    background: #f2f6e9;
+    background-image: url('/images/recipe_background.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
   }
