@@ -1,26 +1,24 @@
 function username_api(){
-    var request = new XMLHttpRequest()
+    const request = new XMLHttpRequest()
     request.open('GET', '/get_user_info_api', true)
     request.onload = function () {
         // Begin accessing JSON data here
-        var data = JSON.parse(this.response)
+        const data = JSON.parse(this.response)
         if (request.status >= 200 && request.status < 400) {
-            var balance_btn = document.getElementById("navbarDropdownMenuLink");
+            const balance_btn = document.getElementById("navbarDropdownMenuLink");
             balance_btn.innerHTML = data.value;
         } else {
             console.log("Error!!!!!");
         }
     }
-
     request.send()
-
 }
 
-var favorite = document.querySelector(".custom-checkbox")
-
-favorite.addEventListener("click", {
-    if (favo) {
-        
-    }
-
+var ready = (callback) => {
+    if (document.readyState != "loading") callback();
+    else document.addEventListener("DOMContentLoaded", callback);
+}
+ready(() => {
+    document.querySelector("main").style.height = window.innerHeight + "px";
 })
+

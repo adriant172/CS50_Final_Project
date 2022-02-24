@@ -1,12 +1,9 @@
-import os
-import json
 from cs50 import SQL
-from sqlite3 import connect
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from support_functions import *
-from flask_sqlalchemy import SQLAlchemy
+import random
 
 app =  Flask(__name__)
 
@@ -43,7 +40,10 @@ db = SQL("sqlite:///recipe_app.db")
 def index():
     # General Search functionaility 
     if request.method == "GET":
-        return render_template("index.html")
+        user_id = session["user_id"]
+        suggestion_results = get_suggestions(user_id)
+        recommendations = random.sample(suggestion_results, 2)
+        return render_template("index.html", recommendations=recommendations)
     else:
         recipe_search = request.form.get("recipe_search")
         if not recipe_search:
@@ -94,6 +94,12 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    all_cuisines = []
+    user_prefs = []
+    cuisine_tags = db.execute("SELECT * FROM cuisine_tags")
+    for cuisine in cuisine_tags:
+        all_cuisines.append(cuisine)
+
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -112,9 +118,19 @@ def register():
         row = db.execute("SELECT id FROM users WHERE username= ?", username)
         new_user_id = row[0]["id"]
         session["user_id"] = new_user_id
+        # Adding preferences selection
+        daily_budget = request.form.get("daily_budget")
+        cuisine_selections = request.form.getlist("cuisine_selections")
+        db.execute("UPDATE users SET daily_budget=? WHERE id=?", daily_budget, new_user_id)
+        for cuisine in all_cuisines:
+            for selection in cuisine_selections:
+                if selection == cuisine["cuisine_type"]:
+                    user_prefs.append(cuisine["id"])
+        for id in user_prefs:
+            db.execute("INSERT INTO user_preferences (user_id, cuisine_id, enabled) VALUES (?, ?, ?)", new_user_id, id, 1)
         return redirect("/")
     else:
-        return render_template("register.html")
+        return render_template("register.html", all_cuisines=all_cuisines)
 
 @app.route("/view_recipe", methods=["GET", "POST"])
 def view_recipe():
@@ -175,6 +191,7 @@ def settings():
             # create list of the ids of the users new cuisine preferences
             new_preferences_ids = []
             for cuisine in cuisine_selections:
+                print(db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine))
                 current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
                 new_preferences_ids.append(current_cuisine_id)
             #Confirm that the selected options reflect option in DB
