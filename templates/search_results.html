@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <table>
+    <table class="table-responsive">
         <thead>
             <tr>
                 <th></th>
@@ -23,10 +23,12 @@
                         <form action="/view_recipe" method="post">
                             <input hidden name="recipe_id" id="recipe_id" value="{{ result.id }}" type="text">
                             <input hidden name="image_url" id="recipe_url" value="{{ result.image }}" type="text">
-                            <button id="view_recipe" type="submit">View</button>
+                            <button id="view_recipe" class="btn btn-primary" type="submit">View</button>
+                            <button type="submit" class="btn btn-outline-light"><img src="{{ result.image }}" alt="{{ result.title }}"></button>
+                            
                         </form>
                     </td>
-                    <td>{{ result.title }} +  <img src="{{ result.image }}" alt="{{ result.title }}"></td>
+                    <td>{{ result.title }}</td>
                     <td>{{ result.sourceUrl }}</td>
                     <td>{{ result.readyInMinutes }}</td>
                     <td>{{ result.servings }}</td>

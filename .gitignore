@@ -7,3 +7,4 @@ flask_session/
 test.py
 removefolder/
 join_query.sql
+recipe_app.db
