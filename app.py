@@ -48,12 +48,12 @@ def index():
         recipe_search = request.form.get("recipe_search")
         if not recipe_search:
             return apology("Error: Blank search request. Please input a search request")
-        results = sp_recipe_look_up(recipe_search)
-        if not results:
+        recipes = sp_recipe_look_up(recipe_search)
+        if not recipes:
             return apology("Could not retrieve results")
         # Calculate recipe price and convert it from cents to dollars 
         # total_price = (results["pricePerServing"] * results["servings"]) / 100
-        return render_template("search_results.html", results=results)
+        return render_template("search_results.html", recipes=recipes)
     return apology("Page Not available!")
 
 @app.route("/login", methods=["GET", "POST"])

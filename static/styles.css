@@ -39,7 +39,7 @@
 
   body {
     background-color: #f2f6e9;
-    background-image: url('http://127.0.0.1:8887/recipe-background.jpg');
+    /* background-image: url('http://127.0.0.1:8887/recipe-background.jpg'); */
     background-size: cover;
     background-position: center;
     position: relative;

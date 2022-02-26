@@ -5,35 +5,26 @@
 {% endblock %}
 
 {% block main %}
-    <table class="table-responsive">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Recipe</th>
-                <th>URL</th>
-                <th>Total Time</th>
-                <th>Servings</th>
-                <th>Estimated Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
-                <tr>
-                    <td>
+    <div class="container-fluid">   
+        {% for recipe in recipes %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
                         <form action="/view_recipe" method="post">
-                            <input hidden name="recipe_id" id="recipe_id" value="{{ result.id }}" type="text">
-                            <input hidden name="image_url" id="recipe_url" value="{{ result.image }}" type="text">
-                            <button id="view_recipe" class="btn btn-primary" type="submit">View</button>
-                            <button type="submit" class="btn btn-outline-light"><img src="{{ result.image }}" alt="{{ result.title }}"></button>
-                            
+                            <input hidden name="recipe_id" id="recipe_id" value="{{ recipe.id }}" type="text">
+                            <input hidden name="image_url" id="recipe_url" value="{{ recipe.image }}" type="text">
+                            <button class="btn btn-outline-light" type="submit"><img src="{{ recipe.image }}" alt="{{ recipe.title }}"></button>
                         </form>
-                    </td>
-                    <td>{{ result.title }}</td>
-                    <td>{{ result.sourceUrl }}</td>
-                    <td>{{ result.readyInMinutes }}</td>
-                    <td>{{ result.servings }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                    </div>
+                    <div>
+                        <h5>{{ recipe.title }}</h5>
+                    </div>
+                    <div>Original Source: {{ recipe.sourceUrl }}</div>
+                    <div>Total Time: {{ recipe.readyInMinutes }} minutes </div>
+                    <div>Servings: {{ recipe.servings }}</div>
+                    <div>Total Price: {{ recipe | recipe_price | usd}}</div>
+                </div>
+                {% endfor %}
+            </div> 
+    </div>
 {% endblock %}
