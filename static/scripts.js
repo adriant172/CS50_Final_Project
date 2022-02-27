@@ -21,4 +21,3 @@ var ready = (callback) => {
 ready(() => {
     document.querySelector("main").style.height = window.innerHeight + "px";
 })
-
