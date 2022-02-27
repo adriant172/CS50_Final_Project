@@ -7,29 +7,36 @@
 {% block main %}
 <div class="container">
     <div>
-        <h4>Current Budget</h4>
-        <p>{{ daily_budget | usd }}</p>
-    </div>
-    <div>
         <h4>Preferences</h4>
-        <ul>
+        <!-- <ul>
             {% for pref in current_user_prefs %}
                 <li> {{ pref }} </li>
             {% endfor %}
-        </ul>
+        </ul> -->
         <form action="/settings" method="post">
-            <div>
-                <div>
+            <div class="container-fluid">
+                <div class="row">
                     {% for cuisine in all_cuisine_types %}
-                    <input type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections" value="{{ cuisine.cuisine_type }}">
-                    <label for="{{ cuisine.cuisine_type }}">"{{ cuisine.cuisine_type }}"</label>
-                    {% endfor %}
+                        <div class="form-check form-switch col-md-3">
+                            {% if cuisine.cuisine_type in current_user_prefs %}{% set checkedVal = 'checked' %}{% endif %}
+                            <input class="form-check-input" type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections" value="{{ cuisine.cuisine_type }}" {{ checkedVal }}>
+                            <label class="form-check-label" for="{{ cuisine.cuisine_type }}">{{ cuisine.cuisine_type }}</label>  
+                        </div>
+                        {% endfor %}
                 </div>
-                <div>
-                    <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
-                    <button type="submit">Submit</button>
-                </div>     
+                
             </div>
+            <div>
+                <h4>Current Budget</h4>
+                <p>{{ daily_budget | usd }}</p>
+            </div>
+            <div>
+                <input name="new_budget" autocomplete="off" id="new_budget" type="number" placeholder="$0.00" step=".01">
+                <div>
+                    <button type="submit">Submit</button>
+
+                </div>
+            </div>     
         </form>
     </div>
 

@@ -5,5 +5,28 @@
 {% endblock %}
 
 {% block main %}
-This will be filled up soon 
+<h2>Recommendations</h2>
+<div class="container-fluid">
+        <div class="row">
+            {% for recipe in recommendations %}
+            <div class="col-md-6">
+                <div>
+                    <form action="/view_recipe" method="post">
+                        <input hidden name="recipe_id" id="recipe_id" value="{{ recipe.id }}" type="text">
+                        <input hidden name="image_url" id="recipe_url" value="{{ recipe.image }}" type="text">
+                        <button class="btn btn-outline-light" type="submit"><img src="{{ recipe.image }}" alt="{{ recipe.title }}"></button>
+                    </form>
+                </div>
+                <div>
+                    <h5>{{ recipe.title }}</h5>
+                </div>
+                <div>Original Source: {{ recipe.sourceUrl }}</div>
+                <div>Total Time: {{ recipe.readyInMinutes }} minutes </div>
+                <div>Servings: {{ recipe.servings }}</div>
+                <div>Total Price: {{ recipe | recipe_price | usd}}</div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+
 {% endblock %}
