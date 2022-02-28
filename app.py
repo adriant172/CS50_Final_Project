@@ -4,12 +4,12 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from support_functions import *
 import random
+from my_models import api_cache_models
 
 app =  Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
 # Custom filters
 app.jinja_env.filters["usd"] = usd
 app.jinja_env.filters["recipe_price"] = recipe_price
@@ -23,16 +23,19 @@ Session(app)
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = "recipe_app.db"
 # db = SQLAlchemy(app)
-db = SQL("sqlite:///recipe_app.db")
+db = SQL(os.getenv("DATABASE_URL"))
 
 # Make sure API key and API id is set
 # if os.environ.get("API_KEY") == None:
 #     raise RuntimeError("API_KEY not set")
 # if not os.environ.get("API_ID"):
 #     raise RuntimeError("API_ID not set")
-
-
-
+@app.route("/test", methods=["GET"])
+def test():
+    x = api_cache_models.Spoonacular_Api_Handler(db, os.getenv("APIKEY"))
+    r_list = x.get_data(query_path="/recipes/complexSearch")
+    r_info = x.get_data(query_path=f"recipes/{r_list['results'][0]['id']}/information")
+    return r_info
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -163,11 +166,11 @@ def settings():
     user_id = session["user_id"]
     user_prefs_IDs = db.execute("SELECT cuisine_id FROM user_preferences WHERE user_id=? AND enabled=?", user_id, 1 )
     # Grab all cusine types from DB and pass them to the settings route
-    all_cuisine_types = []
+    all_cuisines = []
     current_user_prefs = []
     cuisine_tags = db.execute("SELECT * FROM cuisine_tags")
     for cuisine in cuisine_tags:
-            all_cuisine_types.append(cuisine)
+            all_cuisines.append(cuisine)
             for id in user_prefs_IDs:
                 if id["cuisine_id"] == cuisine["id"]:
                     current_user_prefs.append(cuisine["cuisine_type"])
@@ -177,7 +180,7 @@ def settings():
         if not daily_budget:
             daily_budget = 0
         daily_budget = float(daily_budget)
-        return render_template("settings.html", all_cuisine_types=all_cuisine_types, current_user_prefs=current_user_prefs, daily_budget=daily_budget)
+        return render_template("settings.html", all_cuisines=all_cuisines, current_user_prefs=current_user_prefs, daily_budget=daily_budget)
     else:
         new_budget = request.form.get("new_budget")
         cuisine_selections = request.form.getlist("cuisine_selections")
@@ -195,7 +198,7 @@ def settings():
                 current_cuisine_id = db.execute("SELECT id FROM cuisine_tags WHERE cuisine_type=?", cuisine)[0]["id"]
                 new_preferences_ids.append(current_cuisine_id)
             #Confirm that the selected options reflect option in DB
-            for cuisine in all_cuisine_types:
+            for cuisine in all_cuisines:
                 if cuisine["cuisine_type"] not in cuisine_selections:
                     db.execute("UPDATE user_preferences SET enabled=0 WHERE user_id=? AND cuisine_id=?", user_id, cuisine["id"])
                 else:

@@ -21,28 +21,8 @@ Register
           type="password">
       </div>
   </div>
-  <div class="row">
-    <h2>Set Cuisine Preferences</h2>
-    <div class="container">
-      {% for cuisine in all_cuisines %}
-      <div class="row justify-content-center text-start">
-        <div class="form-check form-switch col-2">
-          <input class="form-check-input" type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections"
-            value="{{ cuisine.cuisine_type }}">
-          <label class="form-check-label" for="{{ cuisine.cuisine_type }}">{{ cuisine.cuisine_type }}</label>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-  <div>
-    <h2 class="h2">Set Budget</h2>
-    <input name="daily_budget" autocomplete="off" id="set_budget" type="number" placeholder="$0.00" step=".01" required>
-  </div>
-  <button class="btn btn-primary" type="submit">Register</button>
+  {% include 'settings_form_contents.html' %}
   </form>
 
 </div>
-
-
 {% endblock %}

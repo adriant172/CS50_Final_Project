@@ -6,9 +6,8 @@ from flask import render_template, session, redirect
 from functools import wraps
 from dotenv import load_dotenv
 
-
-db = SQL("sqlite:///recipe_app.db")
 load_dotenv()
+db = SQL(os.getenv("DATABASE_URL"))
 api_key = os.getenv("APIKEY")
 
 def usd(value):
