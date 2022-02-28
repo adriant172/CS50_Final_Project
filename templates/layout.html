@@ -28,12 +28,12 @@
                     {% if session["user_id"] %}
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="navlink" href="/suggestions">Suggestions</a>
+                        <a class="navlink btn btn-primary px-2" href="/suggestions" role="button">Suggestions</a>
                     </li>
                     <li class="nav-item">
                         <form class="form-inline" action="/" method="post">
-                            <input autocomplete="off" class="form-control mr-sm-2" autofocus id="recipe_search" name="recipe_search" placeholder="Search" type="text">
-                            <button class="btn btn-outline-success my-2 my-sm-0"  .text-center type="submit" value="search">Search</button>
+                            <input autocomplete="off" class="form-control mr-sm-2 me-2 ms-2" autofocus id="recipe_search" name="recipe_search" placeholder="Search" type="text">
+                            <button class="btn btn-outline-success float-right my-2 my-sm-0"  .text-center type="submit" value="search">Search</button>
                         </form>
                     </li>
                 </ul>
