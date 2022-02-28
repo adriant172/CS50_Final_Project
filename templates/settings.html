@@ -17,7 +17,7 @@
             <div class="container-fluid">
                 <div class="row">
                     {% for cuisine in all_cuisine_types %}
-                        <div class="form-check form-switch col-md-3">
+                        <div class="form-check form-switch text-start col-5 offset-1 col-md-3 offset-1 col-lg-2 offset-1">
                             {% if cuisine.cuisine_type in current_user_prefs %}{% set checkedVal = 'checked' %}{% endif %}
                             <input class="form-check-input" type="checkbox" id="{{ cuisine.cuisine_type }}" name="cuisine_selections" value="{{ cuisine.cuisine_type }}" {{ checkedVal }}>
                             <label class="form-check-label" for="{{ cuisine.cuisine_type }}">{{ cuisine.cuisine_type }}</label>  
