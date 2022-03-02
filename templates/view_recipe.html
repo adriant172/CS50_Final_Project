@@ -12,17 +12,26 @@
         <div>
             <img src="{{ image_url }}" alt {{ recipe.title }}>
         </div>
-        <div>CooK Time: {{ recipe.cookingTime }}</div>
         <div>Total Time: {{ recipe.readyInMinutes }}</div>
         <div>Servings: {{ recipe.servings }}</div>
         <div>Estimated Price: {{ total_price | usd }}</div>
-        <div>Summary: {{ recipe.summary | remove_html_tags}}</div>
-        <ul>
-            {% for ingredient in recipe.extendedIngredients %}
-                <li class="ingredients">{{ ingredient.original }}</li>
-            {% endfor %}
-        </ul>
+
+        <h4>Summary</h4>
+        <div>{{ recipe.summary | remove_html_tags}}</div>
+
+        <div class="row">
+            <div>
+                <h4 class="recipe-headers">Ingredients</h4>
+                <ul>
+                    {% for ingredient in recipe.extendedIngredients %}
+                        <li class="ingredients">{{ ingredient.original }}</li>
+                    {% endfor %}
+                </ul>
+            </div>     
+        </div>
+        
         <div>
+            <h4 class="recipe-headers">Steps</h4>
             <ol>
                 {% for step in instructions %}
                     <li class="steps">{{ step }}</li>
