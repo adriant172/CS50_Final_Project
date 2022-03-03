@@ -49,8 +49,6 @@ soupsieve==2.3.1
 SQLAlchemy==1.4.31
 sqlparse==0.4.2
 termcolor==1.1.0
-Twisted==21.7.0
-twisted-iocpsupport==1.0.2
 typing_extensions==4.0.1
 urllib3==1.26.8
 w3lib==1.22.0
