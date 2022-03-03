@@ -11,10 +11,13 @@
         </div>
         <div>
             <img src="{{ image_url }}" alt {{ recipe.title }}>
+                <div>Total Time: {{ recipe.readyInMinutes }}</div>
+                <div>Servings: {{ recipe.servings }}</div>
+                <div>Estimated Price: {{ total_price | usd }}</div>
         </div>
-        <div>Total Time: {{ recipe.readyInMinutes }}</div>
+        <!-- <div>Total Time: {{ recipe.readyInMinutes }}</div>
         <div>Servings: {{ recipe.servings }}</div>
-        <div>Estimated Price: {{ total_price | usd }}</div>
+        <div>Estimated Price: {{ total_price | usd }}</div> -->
 
         <h4>Summary</h4>
         <div>{{ recipe.summary | remove_html_tags}}</div>

@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from support_functions import *
 import random
 
-app =  Flask(__name__)
+app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -208,7 +208,27 @@ def settings():
                         db.execute("UPDATE user_preferences SET enabled=1 WHERE user_id=? AND cuisine_id=?", user_id, cuisine["id"])
                 
         return redirect("/")
-        
+
+
+@app.route("/change_password", methods=["GET", "POST"])
+def change_password():
+    user_id = session["user_id"]
+    if request.method == "POST":
+        old_password = request.form.get("old_password")
+        new_password = request.form.get("new_password")
+        confirmation = request.form.get("confirmation")
+        rows = db.execute("SELECT * FROM users WHERE id=?", user_id)
+        if not old_password or not new_password or not confirmation:
+            return apology("Please go back and fill in password information", 403)
+        if not check_password_hash(rows[0]["password_hash"], old_password):
+            return apology(" Invalid password", 403)
+        if new_password != confirmation:
+            return apology("New password and confirmation do not match", 403)
+        db.execute("UPDATE users SET password_hash=? WHERE id=?", generate_password_hash(new_password), user_id)
+        return redirect("/")
+    else:
+        return render_template("change_password.html")
+
 
 @app.route("/get_user_info_api")
 def get_user_info_api():
